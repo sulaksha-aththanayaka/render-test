@@ -13,8 +13,10 @@ import swaggerOptions from "./swagger-config.js";
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
-app.use(cors());
-
+app.use(cors({
+  origin: 'http://localhost:8080',  // Specify your frontend URL here
+  credentials: true,  // Allow cookies to be sent with requests
+}));
 // Initialize Swagger documentation
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -22,7 +24,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 dbConnection();
 
 app.get("/", (req, res) => {
-  res.send("4th commit");
+  res.send("5th commit");
 });
 
 
