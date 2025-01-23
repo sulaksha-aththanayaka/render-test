@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+import cors from "cors"
 import dbConnection from "./db.js";
 import express from "express";
 const app = express();
@@ -12,6 +13,7 @@ import swaggerOptions from "./swagger-config.js";
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
+app.use(cors());
 
 // Initialize Swagger documentation
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
