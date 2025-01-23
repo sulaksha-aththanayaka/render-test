@@ -55,15 +55,21 @@ export const loginUser = async (
       res.cookie("accessToken", accessToken, {
         httpOnly: true, // Prevent access via JavaScript
         secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "None", // Prevent CSRF
+        sameSite: "strict", // Prevent CSRF
         maxAge: 60 * 60 * 1000, // 1 hour
+        // secure: true, // Required for SameSite=None
+        // sameSite: 'None', // Allow cross-origin cookies
+        path: '/',
       });
   
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true, // Prevent access via JavaScript
         secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "None", // Prevent CSRF
-        maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+        sameSite: "strict", // Prevent CSRF
+        maxAge: 7 * 24 * 60 * 60 * 1000 ,// 7 days in milliseconds
+        // secure: true, // Required for SameSite=None
+        // sameSite: 'None', // Allow cross-origin cookies
+        path: '/',
       });
   
       await existingUser.save();
