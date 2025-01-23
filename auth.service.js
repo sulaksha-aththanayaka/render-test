@@ -55,14 +55,14 @@ export const loginUser = async (
       res.cookie("accessToken", accessToken, {
         httpOnly: true, // Prevent access via JavaScript
         secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "strict", // Prevent CSRF
+        sameSite: "None", // Prevent CSRF
         maxAge: 60 * 60 * 1000, // 1 hour
       });
   
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true, // Prevent access via JavaScript
         secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "strict", // Prevent CSRF
+        sameSite: "None", // Prevent CSRF
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
       });
   
