@@ -13,18 +13,35 @@ import swaggerOptions from "./swagger-config.js";
 const port = process.env.PORT || 8080;
 
 app.use(express.json());
+// app.use(cors({
+//   origin: 'http://localhost:8080',  // Specify your frontend URL here
+//   credentials: true,  // Allow cookies to be sent with requests
+// }));
+
 app.use(cors({
-  origin: 'http://localhost:8080',  // Specify your frontend URL here
+  origin: (origin, callback) => {
+    // Allow all origins for testing or specify the frontend domain
+    callback(null, true);  // Allows any origin (use cautiously)
+  },
   credentials: true,  // Allow cookies to be sent with requests
 }));
+
 // Initialize Swagger documentation
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  // This adds the `credentials: 'include'` to Swagger's requests
+  requestInterceptor: (req) => {
+    req.credentials = 'include';  // Ensures cookies are included in the request
+    return req;
+  }
+}));
 
 dbConnection();
 
 app.get("/", (req, res) => {
-  res.send("5th commit");
+  res.send("6th commit");
 });
 
 
