@@ -41,7 +41,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 dbConnection();
 
 app.get("/", (req, res) => {
-  res.send("7th commit");
+  res.send("8th commit");
 });
 
 

@@ -54,8 +54,10 @@ export const loginUser = async (
   
       res.cookie("accessToken", accessToken, {
         httpOnly: true, // Prevent access via JavaScript
-        secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "strict", // Prevent CSRF
+        // secure: process.env.NODE_ENV === "production", // Secure cookie in production
+        // sameSite: "strict", // Prevent CSRF
+        secure: false,
+        sameSite: "None",
         maxAge: 60 * 60 * 1000, // 1 hour
         // secure: true, // Required for SameSite=None
         // sameSite: 'None', // Allow cross-origin cookies
@@ -64,8 +66,10 @@ export const loginUser = async (
   
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true, // Prevent access via JavaScript
-        secure: process.env.NODE_ENV === "production", // Secure cookie in production
-        sameSite: "strict", // Prevent CSRF
+        // secure: process.env.NODE_ENV === "production", // Secure cookie in production
+        // sameSite: "strict", // Prevent CSRF
+        secure: false,
+        sameSite: "None",
         maxAge: 7 * 24 * 60 * 60 * 1000 ,// 7 days in milliseconds
         // secure: true, // Required for SameSite=None
         // sameSite: 'None', // Allow cross-origin cookies
