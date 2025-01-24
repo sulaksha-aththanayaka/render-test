@@ -6,6 +6,10 @@ import dbConnection from "./db.js";
 import express from "express";
 const app = express();
 import * as userService from "./auth.service.js";
+import { authenticateUser } from "./auth.middleware.js";
+
+import cookieParser from "cookie-parser";
+
 
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
@@ -17,6 +21,9 @@ app.use(express.json());
 //   origin: 'http://localhost:8080',  // Specify your frontend URL here
 //   credentials: true,  // Allow cookies to be sent with requests
 // }));
+
+// Use cookie-parser middleware
+app.use(cookieParser());
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -41,7 +48,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 dbConnection();
 
 app.get("/", (req, res) => {
-  res.send("9th commit");
+  res.send("10th commit");
 });
 
 
@@ -109,6 +116,12 @@ app.post("/login", async (req, res) => {
   } catch (error) {
     console.log("Error: ", error);
   }
+});
+
+app.post("/test", authenticateUser, async (req, res) => {
+  const {test} = req;
+  console.log("Request:", test);
+  res.send("Authenticated user");
 });
 
 
